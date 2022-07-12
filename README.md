@@ -1,12 +1,12 @@
 # easy_load_more
 
-![GitHub repo size](https://img.shields.io/github/repo-size/usefulteam/easy_load_more_.svg)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/usefulteam/easy_load_more_.svg)
-![GitHub top language](https://img.shields.io/github/languages/top/usefulteam/easy_load_more_.svg)
-[![GitHub issues](https://img.shields.io/github/issues/usefulteam/easy_load_more_.svg)](https://github.com/usefulteam/easy_load_more_/issues)
-[![GitHub license](https://img.shields.io/github/license/usefulteam/easy_load_more_.svg)](https://github.com/usefulteam/easy_load_more_/blob/master/LICENSE)
+![GitHub repo size](https://img.shields.io/github/repo-size/usefulteam/easy_load_more.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/usefulteam/easy_load_more.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/usefulteam/easy_load_more.svg)
+[![GitHub issues](https://img.shields.io/github/issues/usefulteam/easy_load_more.svg)](https://github.com/usefulteam/easy_load_more/issues)
+[![GitHub license](https://img.shields.io/github/license/usefulteam/easy_load_more.svg)](https://github.com/usefulteam/easy_load_more/blob/master/LICENSE)
 
-**easy_load_more_** is a simple, easy to use, and customizeable load more that supports `ListView` & `SliverList`.
+**easy_load_more** is a simple, easy to use, and customizeable load more that supports `ListView` & `SliverList`.
 
 ![](https://raw.githubusercontent.com/usefulteam/easy_load_more/main/media/easy-load-more-0.1.0-demo.gif)
 
@@ -19,7 +19,7 @@ Or try the [demo on DartPad](https://dartpad.dev/?id=02e5cf68c51a6e16a79e5c951b4
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
-easy_load_more_: ^0.1.0
+easy_load_more: ^0.1.0
 ```
 
 ### **Install it**
@@ -37,7 +37,7 @@ Alternatively, your editor might support flutter pub get.
 Now in your Dart code, you can use:
 
 ```dart
-import 'package:easy_load_more_/easy_load_more_.dart';
+import 'package:easy_load_more/easy_load_more.dart';
 
 ```
 
