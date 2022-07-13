@@ -128,17 +128,20 @@ More parameters:
 const EasyLoadMore({
   Key? key,
 
-  /// `Color` - (Optional) The loading widget's color.
-  this.loadingWidgetColor;
-
-  /// `double` - (Optional) The dimension's size of the loading widget.
-  this.loadingWidgetSize;
-
   /// `double` - (Optional) The height of the loading widget's container/wrapper.
   this.loadingWidgetContainerHeight;
 
-  /// `int` - (Optional) The loading animation delay.
-  this.loadingAnimationDelay;
+  /// `double` - (Optional) The loading widget size.
+  this.loadingWidgetSize;
+
+  /// `double` - (Optional) The loading widget stroke width.
+  this.loadingWidgetStrokeWidth;
+
+  /// `Color` - (Optional) The loading widget color.
+  this.loadingWidgetColor;
+
+  /// `int` - (Optional) The loading widget animation delay.
+  this.loadingWidetAnimationDelay;
 
   /// `string` - (Optional) Idle status text to show when the widget is idle.
   this.idleStatusText,

@@ -15,13 +15,6 @@ class _BuildNotification extends Notification {}
 
 class _RetryNotification extends Notification {}
 
-class EasyLoadMoreDefaultOpts {
-  static const double size = 24.0;
-  static const double containerHeight = 60.0;
-  static const int delay = 16;
-  static const Color color = Colors.blue;
-}
-
 class EasyLoadMoreStatusText {
   static const String idle = 'Scroll to load more';
   static const String loading = 'Loading...';
@@ -44,18 +37,29 @@ class EasyLoadMoreStatusText {
   }
 }
 
+class EasyLoadMoreLoadingWidgetDefaultOpts {
+  static const double containerHeight = 60.0;
+  static const double size = 24.0;
+  static const double strokeWidth = 3.0;
+  static const Color color = Colors.blue;
+  static const int delay = 16;
+}
+
 class EasyLoadMore extends StatefulWidget {
-  /// The loading widget color.
-  final Color loadingWidgetColor;
-
-  /// The dimension's size of the loading widget.
-  final double loadingWidgetSize;
-
   /// The height of the loading widget's container/wrapper.
   final double loadingWidgetContainerHeight;
 
-  /// The loading animation delay.
-  final int loadingAnimationDelay;
+  /// The loading widget size.
+  final double loadingWidgetSize;
+
+  /// The loading widget stroke width.
+  final double loadingWidgetStrokeWidth;
+
+  /// The loading widget color.
+  final Color loadingWidgetColor;
+
+  /// The loading widget animation delay.
+  final int loadingWidgetAnimationDelay;
 
   /// Status text to show when the load more is not triggered.
   final String idleStatusText;
@@ -93,10 +97,14 @@ class EasyLoadMore extends StatefulWidget {
 
   const EasyLoadMore({
     Key? key,
-    this.loadingWidgetColor = EasyLoadMoreDefaultOpts.color,
-    this.loadingWidgetSize = EasyLoadMoreDefaultOpts.size,
-    this.loadingWidgetContainerHeight = EasyLoadMoreDefaultOpts.containerHeight,
-    this.loadingAnimationDelay = EasyLoadMoreDefaultOpts.delay,
+    this.loadingWidgetContainerHeight =
+        EasyLoadMoreLoadingWidgetDefaultOpts.containerHeight,
+    this.loadingWidgetSize = EasyLoadMoreLoadingWidgetDefaultOpts.size,
+    this.loadingWidgetStrokeWidth =
+        EasyLoadMoreLoadingWidgetDefaultOpts.strokeWidth,
+    this.loadingWidgetColor = EasyLoadMoreLoadingWidgetDefaultOpts.color,
+    this.loadingWidgetAnimationDelay =
+        EasyLoadMoreLoadingWidgetDefaultOpts.delay,
     this.idleStatusText = EasyLoadMoreStatusText.idle,
     this.loadingStatusText = EasyLoadMoreStatusText.loading,
     this.failedStatusText = EasyLoadMoreStatusText.failed,
@@ -286,12 +294,17 @@ class _EasyLoadMoreState extends State<EasyLoadMore> {
       onNotification: _onRetry,
       child: NotificationListener<_BuildNotification>(
         onNotification: _onLoadMoreBuild,
-        child: DefaultLoadMoreView(
+        child: EasyLoadMoreView(
           status: status,
-          color: widget.loadingWidgetColor,
-          size: widget.loadingWidgetSize,
           containerHeight: widget.loadingWidgetContainerHeight,
-          delay: widget.loadingAnimationDelay,
+          size: widget.loadingWidgetSize,
+          strokeWidth: widget.loadingWidgetStrokeWidth,
+          color: widget.loadingWidgetColor,
+          animationDelay: widget.loadingWidgetAnimationDelay,
+          idleStatusText: widget.idleStatusText,
+          loadingStatusText: widget.loadingStatusText,
+          failedStatusText: widget.failedStatusText,
+          finishedStatusText: widget.finishedStatusText,
         ),
       ),
     );
@@ -341,27 +354,39 @@ class _EasyLoadMoreState extends State<EasyLoadMore> {
   }
 }
 
-class DefaultLoadMoreView extends StatefulWidget {
+class EasyLoadMoreView extends StatefulWidget {
   final EasyLoadMoreStatusState status;
-  final Color color;
-  final double size;
-  final double containerHeight;
-  final int delay;
 
-  const DefaultLoadMoreView({
+  final double containerHeight;
+  final double size;
+  final double strokeWidth;
+  final Color color;
+  final int animationDelay;
+
+  final String idleStatusText;
+  final String loadingStatusText;
+  final String failedStatusText;
+  final String finishedStatusText;
+
+  const EasyLoadMoreView({
     Key? key,
-    this.status = EasyLoadMoreStatusState.idle,
-    this.color = EasyLoadMoreDefaultOpts.color,
-    this.size = EasyLoadMoreDefaultOpts.size,
-    this.containerHeight = EasyLoadMoreDefaultOpts.containerHeight,
-    this.delay = EasyLoadMoreDefaultOpts.delay,
+    required this.status,
+    required this.containerHeight,
+    required this.size,
+    required this.strokeWidth,
+    required this.color,
+    required this.animationDelay,
+    required this.idleStatusText,
+    required this.loadingStatusText,
+    required this.failedStatusText,
+    required this.finishedStatusText,
   }) : super(key: key);
 
   @override
-  State<DefaultLoadMoreView> createState() => _DefaultLoadMoreViewState();
+  State<EasyLoadMoreView> createState() => _EasyLoadMoreViewState();
 }
 
-class _DefaultLoadMoreViewState extends State<DefaultLoadMoreView> {
+class _EasyLoadMoreViewState extends State<EasyLoadMoreView> {
   final buildNotification = _BuildNotification();
   final retryNotification = _RetryNotification();
 
@@ -380,26 +405,41 @@ class _DefaultLoadMoreViewState extends State<DefaultLoadMoreView> {
       child: Container(
         height: widget.containerHeight,
         alignment: Alignment.center,
-        child: buildTextWidget(widget.status),
+        child: buildTextWidget(),
       ),
     );
   }
 
-  Widget buildTextWidget(EasyLoadMoreStatusState state) {
-    String text = EasyLoadMoreStatusText.getText(state);
+  Widget buildTextWidget() {
+    String text = '';
 
-    if (state == EasyLoadMoreStatusState.failed) {
+    switch (widget.status) {
+      case EasyLoadMoreStatusState.idle:
+        text = widget.idleStatusText;
+        break;
+      case EasyLoadMoreStatusState.loading:
+        text = widget.loadingStatusText;
+        break;
+      case EasyLoadMoreStatusState.failed:
+        text = widget.failedStatusText;
+        break;
+      case EasyLoadMoreStatusState.finished:
+        text = widget.finishedStatusText;
+        break;
+    }
+
+    if (widget.status == EasyLoadMoreStatusState.failed) {
       return Container(
         padding: const EdgeInsets.all(0.0),
         child: Text(text),
       );
     }
 
-    if (state == EasyLoadMoreStatusState.idle) {
+    if (widget.status == EasyLoadMoreStatusState.idle) {
       return Text(text);
     }
 
-    if (state == EasyLoadMoreStatusState.loading) {
+    if (widget.status == EasyLoadMoreStatusState.loading) {
       return Container(
         alignment: Alignment.center,
         child: Row(
@@ -409,7 +449,7 @@ class _DefaultLoadMoreViewState extends State<DefaultLoadMoreView> {
               width: widget.size,
               height: widget.size,
               child: CircularProgressIndicator(
-                strokeWidth: 3.0,
+                strokeWidth: widget.strokeWidth,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   widget.color,
                 ),
@@ -426,7 +466,7 @@ class _DefaultLoadMoreViewState extends State<DefaultLoadMoreView> {
       );
     }
 
-    if (state == EasyLoadMoreStatusState.finished) {
+    if (widget.status == EasyLoadMoreStatusState.finished) {
       return Text(text);
     }
 
@@ -436,10 +476,10 @@ class _DefaultLoadMoreViewState extends State<DefaultLoadMoreView> {
   void notify() async {
     Duration delay = max(
       Duration(
-        microseconds: widget.delay,
+        microseconds: widget.animationDelay,
       ),
       const Duration(
-        milliseconds: EasyLoadMoreDefaultOpts.delay,
+        milliseconds: EasyLoadMoreLoadingWidgetDefaultOpts.delay,
       ),
     );
 
