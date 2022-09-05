@@ -19,7 +19,7 @@ Or try the [demo on DartPad](https://dartpad.dev/?id=02e5cf68c51a6e16a79e5c951b4
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
-easy_load_more: ^1.0.0
+easy_load_more: ^1.0.1
 ```
 
 ### **Install it**

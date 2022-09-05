@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.1
+
+Bugfix:
+- Fix `This widget has been unmounted, so the State no longer has a context` error.
+
 ## 1.0.0
 
 Bugfix:
