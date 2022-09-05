@@ -501,10 +501,12 @@ class _EasyLoadMoreViewState extends State<EasyLoadMoreView> {
   }
 
   void _notifyBuildProcess() {
+    if (!mounted) return;
     buildNotification.dispatch(context);
   }
 
   void _notifyRetryProcess() {
+    if (!mounted) return;
     retryNotification.dispatch(context);
   }
 }

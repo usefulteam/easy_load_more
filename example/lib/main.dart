@@ -125,6 +125,8 @@ class _ExamplePageState extends State<ExamplePage> {
   void _loadItems() {
     log("loading items");
 
+    if (!mounted) return;
+
     setState(() {
       list.addAll(List.generate(20, (i) => i + 1));
       log("data count = ${list.length}");
