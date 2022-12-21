@@ -73,6 +73,9 @@ class EasyLoadMore extends StatefulWidget {
   /// Status text to show when there's no more items to load.
   final String finishedStatusText;
 
+  /// Text color of the statuses.
+  final Color? statusTextColor;
+
   /// Manually turn-off the next load more.
   ///
   /// Set this to `true` to set the load more as `finished` (no more items). Default is `false`.
@@ -109,6 +112,7 @@ class EasyLoadMore extends StatefulWidget {
     this.loadingStatusText = EasyLoadMoreStatusText.loading,
     this.failedStatusText = EasyLoadMoreStatusText.failed,
     this.finishedStatusText = EasyLoadMoreStatusText.finished,
+    this.statusTextColor,
     this.isFinished = false,
     this.runOnEmptyResult = false,
     required this.onLoadMore,
@@ -305,6 +309,7 @@ class _EasyLoadMoreState extends State<EasyLoadMore> {
           loadingStatusText: widget.loadingStatusText,
           failedStatusText: widget.failedStatusText,
           finishedStatusText: widget.finishedStatusText,
+          statusTextColor: widget.statusTextColor,
         ),
       ),
     );
@@ -344,10 +349,8 @@ class _EasyLoadMoreState extends State<EasyLoadMore> {
 
     widget.onLoadMore().then((v) {
       if (v == true) {
-        // 成功，切换状态为空闲
         _updateStatus(EasyLoadMoreStatusState.idle);
       } else {
-        // 失败，切换状态为失败
         _updateStatus(EasyLoadMoreStatusState.failed);
       }
     });
@@ -367,6 +370,7 @@ class EasyLoadMoreView extends StatefulWidget {
   final String loadingStatusText;
   final String failedStatusText;
   final String finishedStatusText;
+  final Color? statusTextColor;
 
   const EasyLoadMoreView({
     Key? key,
@@ -380,6 +384,7 @@ class EasyLoadMoreView extends StatefulWidget {
     required this.loadingStatusText,
     required this.failedStatusText,
     required this.finishedStatusText,
+    this.statusTextColor,
   }) : super(key: key);
 
   @override
@@ -429,14 +434,21 @@ class _EasyLoadMoreViewState extends State<EasyLoadMoreView> {
     }
 
     if (widget.status == EasyLoadMoreStatusState.failed) {
-      return Container(
-        padding: const EdgeInsets.all(0.0),
-        child: Text(text),
+      return Text(
+        text,
+        style: TextStyle(
+          color: widget.statusTextColor,
+        ),
       );
     }
 
     if (widget.status == EasyLoadMoreStatusState.idle) {
-      return Text(text);
+      return Text(
+        text,
+        style: TextStyle(
+          color: widget.statusTextColor,
+        ),
+      );
     }
 
     if (widget.status == EasyLoadMoreStatusState.loading) {
@@ -467,10 +479,20 @@ class _EasyLoadMoreViewState extends State<EasyLoadMoreView> {
     }
 
     if (widget.status == EasyLoadMoreStatusState.finished) {
-      return Text(text);
+      return Text(
+        text,
+        style: TextStyle(
+          color: widget.statusTextColor,
+        ),
+      );
     }
 
-    return Text(text);
+    return Text(
+      text,
+      style: TextStyle(
+        color: widget.statusTextColor,
+      ),
+    );
   }
 
   void notify() async {
