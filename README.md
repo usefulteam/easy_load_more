@@ -19,7 +19,7 @@ Or try the [demo on DartPad](https://dartpad.dev/?id=02e5cf68c51a6e16a79e5c951b4
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
-easy_load_more: ^1.0.1
+easy_load_more: ^1.1.0
 ```
 
 ### **Install it**
@@ -143,17 +143,20 @@ const EasyLoadMore({
   /// `int` - (Optional) The loading widget animation delay.
   this.loadingWidetAnimationDelay;
 
-  /// `string` - (Optional) Idle status text to show when the widget is idle.
+  /// `String` - (Optional) Idle status text to show when the widget is idle.
   this.idleStatusText,
 
-  /// `string` - (Optional) Loading status text to show when the process is loading.
+  /// `String` - (Optional) Loading status text to show when the process is loading.
   this.loadingStatusText,
 
-  /// `string` - (Optional) Loading status text to show when the processing is failed.
+  /// `String` - (Optional) Loading status text to show when the processing is failed.
   this.failedStatusText,
 
-  /// `string` - (Optional) Finished status text to show when there's no more items to load.
+  /// `String` - (Optional) Finished status text to show when there's no more items to load.
   this.finishedStatusText,
+
+  /// `Color?` - (Optional) Text color of the statuses
+  this.statusTextColor,
 
   /// `bool` - (Optional) Manually turn-off the next load more.
   /// Set this to `true` to set the load more as `finished` (no more items). Default is `false`.

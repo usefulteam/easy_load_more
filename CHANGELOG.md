@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.0
+
+New property:
+- `statusTextColor`: Text color of the statuses.
+
 ## 1.0.1
 
 Bugfix:

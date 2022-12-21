@@ -1,6 +1,6 @@
 name: easy_load_more_example
 description: Example of easy_load_more usage.
-version: 1.0.1
+version: 1.1.0
 publish_to: 'none'
 
 environment:
