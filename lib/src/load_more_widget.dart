@@ -23,8 +23,6 @@ class EasyLoadMoreStatusText {
 
   static String getText(EasyLoadMoreStatusState state) {
     switch (state) {
-      case EasyLoadMoreStatusState.idle:
-        return idle;
       case EasyLoadMoreStatusState.loading:
         return loading;
       case EasyLoadMoreStatusState.failed:
@@ -99,7 +97,7 @@ class EasyLoadMore extends StatefulWidget {
   final Widget child;
 
   const EasyLoadMore({
-    Key? key,
+    super.key,
     this.loadingWidgetContainerHeight =
         EasyLoadMoreLoadingWidgetDefaultOpts.containerHeight,
     this.loadingWidgetSize = EasyLoadMoreLoadingWidgetDefaultOpts.size,
@@ -117,7 +115,7 @@ class EasyLoadMore extends StatefulWidget {
     this.runOnEmptyResult = false,
     required this.onLoadMore,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<EasyLoadMore> createState() => _EasyLoadMoreState();
@@ -373,7 +371,7 @@ class EasyLoadMoreView extends StatefulWidget {
   final Color? statusTextColor;
 
   const EasyLoadMoreView({
-    Key? key,
+    super.key,
     required this.status,
     required this.containerHeight,
     required this.size,
@@ -385,7 +383,7 @@ class EasyLoadMoreView extends StatefulWidget {
     required this.failedStatusText,
     required this.finishedStatusText,
     this.statusTextColor,
-  }) : super(key: key);
+  });
 
   @override
   State<EasyLoadMoreView> createState() => _EasyLoadMoreViewState();

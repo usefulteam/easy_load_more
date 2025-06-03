@@ -5,8 +5,8 @@ homepage: https://github.com/usefulteam/easy_load_more
 issue_tracker: https://github.com/usefulteam/easy_load_more/issues
 
 environment:
-  sdk: ">=2.17.5 <4.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -15,4 +15,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
