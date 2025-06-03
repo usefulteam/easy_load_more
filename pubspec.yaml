@@ -1,6 +1,6 @@
 name: easy_load_more
 description: Simple & easy to use flutter load more that supports ListView & SliverList.
-version: 1.1.0
+version: 2.0.0
 homepage: https://github.com/usefulteam/easy_load_more
 issue_tracker: https://github.com/usefulteam/easy_load_more/issues
 
